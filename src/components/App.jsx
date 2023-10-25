@@ -6,7 +6,6 @@ import { FilterBar } from './FilterBar/FilterBar';
 
 const getInitialContacts = () => {
   const savedContact = localStorage.getItem('contacts');
-  console.log(savedContact);
   if (savedContact !== null) {
     return JSON.parse(savedContact);
   } else {
@@ -41,7 +40,7 @@ export const App = () => {
   };
 
   const changeFilter = filterValue => {
-    setFilter({ filterValue });
+    setFilter(filterValue);
   };
 
   const visibleContact = contacts.filter(contact =>
