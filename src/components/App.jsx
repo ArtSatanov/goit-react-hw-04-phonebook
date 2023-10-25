@@ -6,14 +6,15 @@ import { FilterBar } from './FilterBar/FilterBar';
 
 const getInitialContacts = () => {
   const savedContact = localStorage.getItem('contacts');
+  console.log(savedContact);
   if (savedContact !== null) {
     return JSON.parse(savedContact);
-  }
-  return [];
+  } else {return  [] } ;
 };
 
+
 export const App = () => {
-  const [contacts, setContacts] = useState(getInitialContacts);
+  const [contacts, setContacts] = useState([]);
   const [filters, setFilter] = useState('');
 
   useEffect(() => {
@@ -21,10 +22,9 @@ export const App = () => {
   }, [contacts]);
 
   const addContact = newContact => {
-    if (
-      contacts.find(
+    if ( setContacts(prevState => prevState.find(
         option => option.name.toLowerCase() === newContact.name.toLowerCase()
-      )
+      ))
     ) {
       alert(`${newContact.name} is already in contacts`);
     } else {
@@ -35,9 +35,9 @@ export const App = () => {
   };
 
   const deleteContact = contactId => {
-    setContacts(prevState => ({
-      contacts: prevState.filter(contact => contact.id !== contactId),
-    }));
+    setContacts(prevState => 
+      prevState.filter(contact => contact.id !== contactId),
+    );
   };
 
   const changeFilter = filterValue => {
